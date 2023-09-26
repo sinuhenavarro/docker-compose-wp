@@ -5,15 +5,15 @@ services:
     ports:
       - 80:80
     volumes:
-      - wp_data:/var/lib/docker/volumes/wp_data
+      - wp_data:/home/sinuhe/Curso23-24/ApWeb/WP/docker-compose-wp/volumes
     networks:
       - wp_net
     depends_on: # Ahora web depende de db
-      - db 
+      - db
   db:
     image: mariadb
     volumes:
-      - db_data:/var/lib/docker/volumes/mariadb_data
+      - wpdb_data:/home/sinuhe/Curso23-24/ApWeb/WP/docker-compose-wp/volumes
     networks:
       - wp_net
     environment:
@@ -25,7 +25,7 @@ services:
       - "3306:3306"
 volumes:
     wp_data:
-    db_data:
+    wpdb_data:
 networks:
     wp_net:
         driver: bridge
