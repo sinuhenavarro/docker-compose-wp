@@ -5,7 +5,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - wp-content:/var/www/html/wp-content
+      - ./wp-content:/var/www/html/wp-content
     networks:
       - wp_net
     environment:
@@ -18,7 +18,7 @@ services:
   db:
     image: mariadb
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./dbdata:/var/lib/mysql
     networks:
       - wp_net
     environment:
@@ -28,9 +28,6 @@ services:
       MYSQL_DATABASE: wordpress
     ports:
       - "3306:3306"
-volumes:
-    dbdata:
-    wp-content:
 networks:
     wp_net:
         driver: bridge
