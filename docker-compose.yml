@@ -5,15 +5,20 @@ services:
     ports:
       - 80:80
     volumes:
-      - wp_data:/home/sinuhe/Curso23-24/ApWeb/WP/docker-compose-wp/volumes
+      - wp-content:/var/www/html/wp-content
     networks:
       - wp_net
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+
     depends_on: # Ahora web depende de db
       - db
   db:
     image: mariadb
     volumes:
-      - wpdb_data:/home/sinuhe/Curso23-24/ApWeb/WP/docker-compose-wp/volumes
+      - dbdata:/var/lib/mysql
     networks:
       - wp_net
     environment:
@@ -24,8 +29,8 @@ services:
     ports:
       - "3306:3306"
 volumes:
-    wp_data:
-    wpdb_data:
+    dbdata:
+    wp-content:
 networks:
     wp_net:
         driver: bridge
