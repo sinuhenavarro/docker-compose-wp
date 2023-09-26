@@ -1,0 +1,31 @@
+version: '3.7' # Versión de docker-compose, depende de Docker
+services:
+  wp:
+    image: wordpress
+    ports:
+      - 80:80
+    volumes:
+      - wp_data:/var/lib/docker/volumes/wp_data
+    networks:
+      - wp_net
+    depends_on: # Ahora web depende de db
+      - db 
+  db:
+    image: mariadb
+    volumes:
+      - db_data:/var/lib/docker/volumes/mariadb_data
+    networks:
+      - wp_net
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+    ports:
+      - "3306:3306"
+volumes:
+    wp_data:
+    db_data:
+networks:
+    wp_net:
+        driver: bridge
